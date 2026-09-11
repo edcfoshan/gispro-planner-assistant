@@ -1,0 +1,249 @@
+<UserControl x:Class="GisProAddinWorkbench.AddIn.Modules.ColorStyle.ColorStyleWorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="760"
+             d:DesignWidth="1120"
+             MinWidth="560"
+             MinHeight="520">
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <Style x:Key="SectionCardStyle" TargetType="Border">
+        <Setter Property="Padding" Value="{DynamicResource CompactPaddingCard}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="BorderBrush" Value="#FFE2E8F0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+      </Style>
+
+      <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="#334155" />
+      </Style>
+
+      <Style x:Key="InputComboBoxStyle"
+             TargetType="ComboBox"
+             BasedOn="{StaticResource CompactInputComboBoxStyle}" />
+
+      <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#F97316" />
+        <Setter Property="BorderBrush" Value="#F97316" />
+        <Setter Property="Padding" Value="{DynamicResource CompactPaddingButton}" />
+        <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+      </Style>
+
+      <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="#0F172A" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#CBD5E1" />
+        <Setter Property="Padding" Value="{DynamicResource CompactPaddingButton}" />
+        <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+      </Style>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid Margin="2">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="{DynamicResource CompactLeftPaneWidth}" />
+      <ColumnDefinition Width="{DynamicResource CompactPaneGapWidth}" />
+      <ColumnDefinition Width="*" MinWidth="{DynamicResource CompactRightPaneMinWidth}" />
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Column="0"
+            Style="{StaticResource SectionCardStyle}"
+            Background="#FFFBFDFF">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+          <TextBlock Text="功能选择"
+                     FontSize="{DynamicResource CompactFontSection}"
+                     FontWeight="SemiBold"
+                     Foreground="#0F172A" />
+          <TextBlock Margin="{DynamicResource CompactMarginSmall}"
+                     FontSize="{DynamicResource CompactFontBody}"
+                     Foreground="#64748B"
+                     Text="左侧切换配色工具，右侧填写参数并执行。"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+
+        <ListBox Grid.Row="1"
+                 Margin="{DynamicResource CompactMarginStack}"
+                 ItemsSource="{Binding Tools}"
+                 SelectedItem="{Binding SelectedTool}"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.CanContentScroll="False">
+          <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+              <Setter Property="Padding" Value="0" />
+              <Setter Property="Margin" Value="0,0,0,10" />
+              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+          </ListBox.ItemContainerStyle>
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Border x:Name="ToolCard"
+                      HorizontalAlignment="Stretch"
+                      Padding="10"
+                      CornerRadius="10"
+                      Background="#FFFFFFFF"
+                      BorderBrush="#FFE5E7EB"
+                      BorderThickness="1">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Border Width="34"
+                          Height="34"
+                          CornerRadius="10"
+                          Background="{Binding AccentBrush}"
+                          VerticalAlignment="Top">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="{DynamicResource CompactFontBody}"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               Text="{Binding Tag}" />
+                  </Border>
+                  <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding Label}"
+                               FontSize="{DynamicResource CompactFontBody}"
+                               FontWeight="SemiBold"
+                               Foreground="#0F172A"
+                               TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="1"
+                               Margin="0,4,0,0"
+                               Text="{Binding Summary}"
+                               FontSize="{DynamicResource CompactFontCaption}"
+                               TextWrapping="Wrap"
+                               Foreground="#64748B" />
+                  </Grid>
+                </Grid>
+              </Border>
+              <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}"
+                             Value="True">
+                  <Setter TargetName="ToolCard" Property="Background" Value="#FFFFF7ED" />
+                  <Setter TargetName="ToolCard" Property="BorderBrush" Value="#FFF97316" />
+                  <Setter TargetName="ToolCard" Property="BorderThickness" Value="2" />
+                </DataTrigger>
+              </DataTemplate.Triggers>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+
+    <ScrollViewer Grid.Column="2"
+                  MinWidth="{DynamicResource CompactRightPaneMinWidth}"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+      <StackPanel>
+        <Border Style="{StaticResource SectionCardStyle}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Width="46"
+                    Height="46"
+                    CornerRadius="12"
+                    Background="{Binding CurrentToolAccentBrush}">
+              <TextBlock HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         FontSize="{DynamicResource CompactFontSection}"
+                         FontWeight="SemiBold"
+                         Foreground="White"
+                         Text="{Binding CurrentToolTag}" />
+            </Border>
+            <StackPanel Grid.Column="1" Margin="12,0,0,0">
+              <TextBlock Text="{Binding CurrentToolTitle}"
+                         FontSize="{DynamicResource CompactFontTitle}"
+                         FontWeight="SemiBold"
+                         Foreground="#0F172A"
+                         TextWrapping="Wrap" />
+              <TextBlock Margin="{DynamicResource CompactMarginSmall}"
+                         Text="{Binding CurrentToolSummary}"
+                         FontSize="{DynamicResource CompactFontBody}"
+                         TextWrapping="Wrap"
+                         Foreground="#475569" />
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <Border Margin="{DynamicResource CompactMarginSection}"
+                Style="{StaticResource SectionCardStyle}"
+                Visibility="{Binding PlaceholderVisibility}">
+          <TextBlock Text="{Binding PlaceholderText}"
+                     FontSize="{DynamicResource CompactFontBody}"
+                     Foreground="#9A3412"
+                     TextWrapping="Wrap" />
+        </Border>
+
+        <StackPanel Visibility="{Binding FormVisibility}">
+          <Border Margin="{DynamicResource CompactMarginSection}"
+                  Style="{StaticResource SectionCardStyle}">
+            <StackPanel>
+              <TextBlock Text="基础参数"
+                         FontSize="{DynamicResource CompactFontSection}"
+                         FontWeight="SemiBold"
+                         Foreground="#0F172A" />
+              <StackPanel Margin="{DynamicResource CompactMarginSection}">
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="配色预设" />
+                <ComboBox Margin="{DynamicResource CompactMarginSmall}"
+                          Style="{StaticResource InputComboBoxStyle}"
+                          ItemsSource="{Binding PaletteOptions}"
+                          DisplayMemberPath="Label"
+                          SelectedItem="{Binding SelectedPaletteOption}" />
+                <CheckBox Margin="0,8,0,0"
+                          FontSize="{DynamicResource CompactFontBody}"
+                          Content="应用到当前地图"
+                          IsChecked="{Binding ApplyToCurrentMap}" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Margin="{DynamicResource CompactMarginSection}"
+                  Style="{StaticResource SectionCardStyle}">
+            <StackPanel>
+              <TextBlock Text="输出与执行"
+                         FontSize="{DynamicResource CompactFontSection}"
+                         FontWeight="SemiBold"
+                         Foreground="#0F172A" />
+              <WrapPanel Margin="{DynamicResource CompactMarginSection}">
+                <Button Margin="0,0,8,8"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Content="{Binding ExecuteButtonText}"
+                        Command="{Binding ExecuteToolCommand}" />
+                <Button Margin="0,0,0,8"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="保存模块配置"
+                        Command="{Binding SaveSettingsCommand}" />
+              </WrapPanel>
+              <TextBlock Margin="{DynamicResource CompactMarginSmall}"
+                         FontSize="{DynamicResource CompactFontBody}"
+                         Foreground="#0F766E"
+                         Text="{Binding StatusText, StringFormat=状态：{0}}" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

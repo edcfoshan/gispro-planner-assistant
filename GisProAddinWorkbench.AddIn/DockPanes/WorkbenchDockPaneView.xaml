@@ -1,0 +1,119 @@
+<UserControl x:Class="GisProAddinWorkbench.AddIn.DockPanes.WorkbenchDockPaneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="860"
+             d:DesignWidth="1280">
+  <Grid>
+    <Grid.Resources>
+      <Style x:Key="ShellRootGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="10" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Margin" Value="0" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="ShellHeaderRowStyle" TargetType="RowDefinition">
+        <Setter Property="Height" Value="Auto" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding ShowWorkspaceHeader}" Value="False">
+            <Setter Property="Height" Value="0" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Height" Value="0" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="ShellFooterRowStyle" TargetType="RowDefinition">
+        <Setter Property="Height" Value="Auto" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Height" Value="0" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="ShellHeaderBorderStyle" TargetType="Border">
+        <Setter Property="Visibility" Value="Visible" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding ShowWorkspaceHeader}" Value="False">
+            <Setter Property="Visibility" Value="Collapsed" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Visibility" Value="Collapsed" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="ShellFooterBorderStyle" TargetType="Border">
+        <Setter Property="Visibility" Value="Visible" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Visibility" Value="Collapsed" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="ShellContentStyle" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0,14,0,0" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding ShowWorkspaceHeader}" Value="False">
+            <Setter Property="Margin" Value="0" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding IsFullscreenWorkspaceMode}" Value="True">
+            <Setter Property="Margin" Value="0" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+    </Grid.Resources>
+
+    <Grid.Style>
+      <StaticResource ResourceKey="ShellRootGridStyle" />
+    </Grid.Style>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Style="{StaticResource ShellHeaderRowStyle}" />
+      <RowDefinition Height="*" />
+      <RowDefinition Style="{StaticResource ShellFooterRowStyle}" />
+    </Grid.RowDefinitions>
+
+    <Border Padding="0,0,0,12"
+            Style="{StaticResource ShellHeaderBorderStyle}"
+            BorderBrush="#E2E8F0"
+            BorderThickness="0,0,0,1">
+      <StackPanel>
+        <TextBlock FontSize="{DynamicResource CompactFontTitle}"
+                   FontWeight="SemiBold"
+                   Foreground="#0F172A"
+                   Text="{Binding WorkspaceTitle}" />
+        <TextBlock Margin="{DynamicResource CompactMarginSmall}"
+                   FontSize="{DynamicResource CompactFontBody}"
+                   Foreground="#475569"
+                   Text="{Binding WorkspaceSummary}"
+                   TextWrapping="Wrap" />
+      </StackPanel>
+    </Border>
+
+    <ContentControl Grid.Row="1"
+                    Style="{StaticResource ShellContentStyle}"
+                    Content="{Binding CurrentWorkspace}" />
+
+    <Border Grid.Row="2"
+            Style="{StaticResource ShellFooterBorderStyle}"
+            Margin="0,12,0,0"
+            Padding="10,7"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="10"
+            Background="#F8FAFC">
+      <TextBlock FontSize="{DynamicResource CompactFontBody}"
+                 Foreground="#334155"
+                 Text="{Binding ShellStatus}" />
+    </Border>
+  </Grid>
+</UserControl>

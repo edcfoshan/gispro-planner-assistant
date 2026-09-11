@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>GisProAddinWorkbench.AddIn</RootNamespace>
+    <PackageType>AddIn</PackageType>
+    <LangVersion>latest</LangVersion>
+    <PublicVersion>1.0.0</PublicVersion>
+    <Version>$(PublicVersion)</Version>
+    <AssemblyVersion>$(PublicVersion).0</AssemblyVersion>
+    <FileVersion>$(PublicVersion).0</FileVersion>
+    <InformationalVersion>$(PublicVersion)</InformationalVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISPro.Extensions30" Version="3.4.0.55405">
+      <ExcludeAssets Condition="'$(MSBuildRuntimeType)' == 'Core'">build</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Config.daml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\**\*.png;Images\**\*.jpg;Images\**\*.jpeg"
+             Exclude="Images\QRCodes\*.jpg;Images\QRCodes\*.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\QRCodes\*.jpg;Images\QRCodes\*.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Vendored\codex_arcgis-geocode-toolbox\**\*"
+             Exclude="Vendored\codex_arcgis-geocode-toolbox\**\__pycache__\**;Vendored\codex_arcgis-geocode-toolbox\**\*.pyc;Vendored\codex_arcgis-geocode-toolbox\.git\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="VerifyVendoredToolbox" AfterTargets="Build">
+    <Error Condition="!Exists('$(TargetDir)Vendored\codex_arcgis-geocode-toolbox\百度高德Geocode.pyt')"
+           Text="内置 PYT 工具箱未随项目输出，请检查 Vendored\codex_arcgis-geocode-toolbox 是否已正确打包。" />
+  </Target>
+</Project>

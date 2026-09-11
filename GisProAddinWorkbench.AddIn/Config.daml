@@ -1,0 +1,113 @@
+<ArcGIS defaultAssembly="GisProAddinWorkbench.AddIn.dll" defaultNamespace="GisProAddinWorkbench.AddIn" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <AddInInfo id="{2025215F-4710-4256-8637-303CED9990FA}" version="1.0.0" desktopVersion="3.4.0">
+    <Name>国土giser工具箱</Name>
+    <Description>一个国土从业者提高分析处理效率的gispro工具箱。</Description>
+    <Author>极思G工作室</Author>
+    <Company>edc</Company>
+    <Date>4/9/2026 4:08:53 下午</Date>
+    <Subject>无</Subject>
+  </AddInInfo>
+  <modules>
+    <insertModule id="GisProAddinWorkbench_AddIn_Module" className="GisProAddinWorkbench.AddIn.AddInModule" autoLoad="false" caption="城乡规划作业台">
+      <tabs>
+        <tab id="GisProAddinWorkbench_AddIn_Tab" caption="国土giser工具箱 v1.0.0">
+          <group refID="GisProAddinWorkbench_AddIn_SystemGroup" />
+          <group refID="GisProAddinWorkbench_AddIn_SurveyGroup" />
+          <group refID="GisProAddinWorkbench_AddIn_ImageryGroup" />
+          <group refID="GisProAddinWorkbench_AddIn_ColorStyleGroup" />
+          <group refID="GisProAddinWorkbench_AddIn_DataProcessingGroup" />
+        </tab>
+      </tabs>
+      <groups>
+        <group id="GisProAddinWorkbench_AddIn_SystemGroup" caption="系统">
+          <button refID="GisProAddinWorkbench_AddIn_ShowVersionInfoButton" size="large" />
+          <button refID="GisProAddinWorkbench_AddIn_OpenSettingsButton" size="large" />
+          <button refID="GisProAddinWorkbench_AddIn_OpenSystemGuideButton" size="large" />
+        </group>
+        <group id="GisProAddinWorkbench_AddIn_SurveyGroup" caption="前期调研">
+          <button refID="GisProAddinWorkbench_AddIn_OpenSurveyModuleButton" size="large" />
+          <subgroup refID="GisProAddinWorkbench_AddIn_SurveyJumpSubGroup" />
+          <button refID="GisProAddinWorkbench_AddIn_OpenSurveyGuideButton" size="large" />
+        </group>
+        <group id="GisProAddinWorkbench_AddIn_ImageryGroup" caption="在线瓦片服务">
+          <button refID="GisProAddinWorkbench_AddIn_OpenImageryModuleButton" size="large" />
+        </group>
+        <group id="GisProAddinWorkbench_AddIn_ColorStyleGroup" caption="配色">
+          <button refID="GisProAddinWorkbench_AddIn_OpenColorStyleModuleButton" size="large" />
+          <button refID="GisProAddinWorkbench_AddIn_OpenColorStyleGuideButton" size="large" />
+        </group>
+        <group id="GisProAddinWorkbench_AddIn_DataProcessingGroup" caption="数据处理">
+          <button refID="GisProAddinWorkbench_AddIn_OpenFaceToTxtButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <button id="GisProAddinWorkbench_AddIn_ShowVersionInfoButton" caption="版本与声明" className="GisProAddinWorkbench.AddIn.Buttons.ShowVersionInfoButton" loadOnClick="true" keytip="VB" smallImage="Images\Icon\system-version-16.png" largeImage="Images\Icon\system-version-32.png">
+          <tooltip heading="查看版本与声明">查看版本信息、软件介绍、作者声明和二维码预留区。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenSettingsButton" caption="设置" className="GisProAddinWorkbench.AddIn.Buttons.OpenSettingsButton" loadOnClick="true" keytip="SZ" smallImage="Images\Icon\system-settings-16.png" largeImage="Images\Icon\system-settings-32.png">
+          <tooltip heading="打开设置窗口">通过窗口配置密钥、默认输出库和请求参数。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenSystemGuideButton" caption="步骤引导" className="GisProAddinWorkbench.AddIn.Buttons.OpenSystemGuideButton" loadOnClick="true" keytip="SY" smallImage="Images\Icon\system-guide-16.png" largeImage="Images\Icon\system-guide-32.png">
+          <tooltip heading="系统步骤引导">弹出图片说明版本与声明、设置流程。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenSurveyModuleButton" caption="数据获取" className="GisProAddinWorkbench.AddIn.Buttons.OpenSurveyModuleButton" loadOnClick="true" keytip="QY" smallImage="Images\Icon\survey-workbench-16.png" largeImage="Images\Icon\survey-workbench-32.png">
+          <tooltip heading="打开数据获取工具箱">直接打开前期调研 PYT 工具箱，按 ArcGIS 原生工具流程选择并执行。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenSurveyGuideButton" caption="步骤引导" className="GisProAddinWorkbench.AddIn.Buttons.OpenSurveyGuideButton" loadOnClick="true" keytip="QG" smallImage="Images\Icon\survey-guide-16.png" largeImage="Images\Icon\survey-guide-32.png">
+          <tooltip heading="前期调研步骤引导">弹出多页图片引导，帮助快速了解前期调研模块。</tooltip>
+        </button>
+        <tool id="GisProAddinWorkbench_AddIn_OpenBaiduMapJumpTool" caption="百度地图网页" className="GisProAddinWorkbench.AddIn.Tools.BaiduMapJumpTool" loadOnClick="true" keytip="BW" smallImage="Images\Icon\baidu-map-16.png" largeImage="Images\Icon\baidu-map-32.png">
+          <tooltip heading="百度地图网页打开">激活后在地图上点一下，即可在浏览器中打开百度地图。</tooltip>
+        </tool>
+        <tool id="GisProAddinWorkbench_AddIn_OpenBaiduMapWorkbenchTool" caption="百度地图作业台" className="GisProAddinWorkbench.AddIn.Tools.BaiduMapWorkbenchTool" loadOnClick="true" keytip="BT" smallImage="Images\Icon\baidu-map-16.png" largeImage="Images\Icon\baidu-map-32.png">
+          <tooltip heading="百度地图作业台打开">激活后在地图上点一下，即可在作业台中打开百度地图。</tooltip>
+        </tool>
+        <tool id="GisProAddinWorkbench_AddIn_OpenAmapMapJumpTool" caption="高德地图网页" className="GisProAddinWorkbench.AddIn.Tools.AmapMapJumpTool" loadOnClick="true" keytip="AW" smallImage="Images\Icon\amap-map-16.png" largeImage="Images\Icon\amap-map-32.png">
+          <tooltip heading="高德地图网页打开">激活后在地图上点一下，即可在浏览器中打开高德地图。</tooltip>
+        </tool>
+        <tool id="GisProAddinWorkbench_AddIn_OpenAmapMapWorkbenchTool" caption="高德地图作业台" className="GisProAddinWorkbench.AddIn.Tools.AmapMapWorkbenchTool" loadOnClick="true" keytip="AT" smallImage="Images\Icon\amap-map-16.png" largeImage="Images\Icon\amap-map-32.png">
+          <tooltip heading="高德地图作业台打开">激活后在地图上点一下，即可在作业台中打开高德地图。</tooltip>
+        </tool>
+        <button id="GisProAddinWorkbench_AddIn_OpenBaiduMapJumpButton" caption="网页打开" className="GisProAddinWorkbench.AddIn.Buttons.OpenBaiduMapJumpButton" loadOnClick="true" keytip="BW" smallImage="Images\Icon\baidu-map-16.png" largeImage="Images\Icon\baidu-map-32.png">
+          <tooltip heading="百度地图网页打开">单击后激活百度地图网页工具，再在地图上点一下即可跳转。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenBaiduMapWorkbenchButton" caption="作业台打开" className="GisProAddinWorkbench.AddIn.Buttons.OpenBaiduMapWorkbenchButton" loadOnClick="true" keytip="BT" smallImage="Images\Icon\baidu-map-16.png" largeImage="Images\Icon\baidu-map-32.png">
+          <tooltip heading="百度地图作业台打开">单击后激活百度地图作业台工具，再在地图上点一下即可打开作业台。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenAmapMapJumpButton" caption="网页打开" className="GisProAddinWorkbench.AddIn.Buttons.OpenAmapMapJumpButton" loadOnClick="true" keytip="AW" smallImage="Images\Icon\amap-map-16.png" largeImage="Images\Icon\amap-map-32.png">
+          <tooltip heading="高德地图网页打开">单击后激活高德地图网页工具，再在地图上点一下即可跳转。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenAmapMapWorkbenchButton" caption="作业台打开" className="GisProAddinWorkbench.AddIn.Buttons.OpenAmapMapWorkbenchButton" loadOnClick="true" keytip="AT" smallImage="Images\Icon\amap-map-16.png" largeImage="Images\Icon\amap-map-32.png">
+          <tooltip heading="高德地图作业台打开">单击后激活高德地图作业台工具，再在地图上点一下即可打开作业台。</tooltip>
+        </button>
+        <dynamicMenu id="GisProAddinWorkbench_AddIn_BaiduMapJumpMenu" caption="百度地图跳转" className="GisProAddinWorkbench.AddIn.Menus.BaiduMapJumpMenu" keytip="BM" smallImage="Images\Icon\baidu-map-16.png" largeImage="Images\Icon\baidu-map-32.png">
+          <tooltip heading="百度地图跳转">展开后可选择在网页或作业台中打开百度地图。</tooltip>
+        </dynamicMenu>
+        <dynamicMenu id="GisProAddinWorkbench_AddIn_AmapMapJumpMenu" caption="高德地图跳转" className="GisProAddinWorkbench.AddIn.Menus.AmapMapJumpMenu" keytip="AM" smallImage="Images\Icon\amap-map-16.png" largeImage="Images\Icon\amap-map-32.png">
+          <tooltip heading="高德地图跳转">展开后可选择在网页或作业台中打开高德地图。</tooltip>
+        </dynamicMenu>
+        <button id="GisProAddinWorkbench_AddIn_OpenImageryModuleButton" caption="在线瓦片服务" className="GisProAddinWorkbench.AddIn.Buttons.OpenImageryModuleButton" loadOnClick="true" keytip="YX" smallImage="Images\Icon\imagery-workbench-16.png" largeImage="Images\Icon\imagery-workbench-32.png">
+          <tooltip heading="打开在线瓦片服务模块">进入在线瓦片加载与服务挂接工作区。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenColorStyleModuleButton" caption="配色" className="GisProAddinWorkbench.AddIn.Buttons.OpenColorStyleModuleButton" loadOnClick="true" keytip="PS" smallImage="Images\Icon\colorstyle-workbench-16.png" largeImage="Images\Icon\colorstyle-workbench-32.png">
+          <tooltip heading="打开配色模块">进入图层样式与制图配色工作区。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenColorStyleGuideButton" caption="步骤引导" className="GisProAddinWorkbench.AddIn.Buttons.OpenColorStyleGuideButton" loadOnClick="true" keytip="PG" smallImage="Images\Icon\colorstyle-guide-16.png" largeImage="Images\Icon\colorstyle-guide-32.png">
+          <tooltip heading="配色步骤引导">弹出图片说明配色模块流程。</tooltip>
+        </button>
+        <button id="GisProAddinWorkbench_AddIn_OpenFaceToTxtButton" caption="面转TXT" className="GisProAddinWorkbench.AddIn.Buttons.OpenFaceToTxtButton" loadOnClick="true" keytip="TX" smallImage="Images\Icon\survey-workbench-16.png" largeImage="Images\Icon\survey-workbench-32.png">
+          <tooltip heading="面状要素转 TXT">打开面状要素转 TXT 工作台，按当前选择集或浏览的数据集导出 TXT。</tooltip>
+        </button>
+      </controls>
+      <subgroups>
+        <subgroup id="GisProAddinWorkbench_AddIn_SurveyJumpSubGroup" size="AlwaysMedium" verticalAlignment="Top">
+          <dynamicMenu refID="GisProAddinWorkbench_AddIn_BaiduMapJumpMenu" />
+          <dynamicMenu refID="GisProAddinWorkbench_AddIn_AmapMapJumpMenu" />
+        </subgroup>
+      </subgroups>
+      <dockPanes>
+        <dockPane id="GisProAddinWorkbench_AddIn_WorkbenchDockPane" caption="城乡规划作业台" className="GisProAddinWorkbench.AddIn.DockPanes.WorkbenchDockPaneViewModel" dock="group" dockWith="esri_core_projectDockPane" />
+      </dockPanes>
+    </insertModule>
+  </modules>
+</ArcGIS>

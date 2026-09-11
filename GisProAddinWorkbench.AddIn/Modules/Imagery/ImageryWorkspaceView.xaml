@@ -1,0 +1,234 @@
+<UserControl x:Class="GisProAddinWorkbench.AddIn.Modules.Imagery.ImageryWorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="760"
+             d:DesignWidth="1120"
+             MinWidth="540"
+             MinHeight="500">
+  <UserControl.Resources>
+    <Style x:Key="GalleryCardButtonStyle" TargetType="Button">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+
+    <Style x:Key="GalleryCardBorderStyle" TargetType="Border">
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="BorderBrush" Value="#FFE2E8F0" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+      <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <Style x:Key="ToolbarComboBoxStyle" TargetType="ComboBox">
+      <Setter Property="Padding" Value="8,5" />
+      <Setter Property="MinWidth" Value="170" />
+      <Setter Property="Background" Value="#FFF8FAFC" />
+      <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+  </UserControl.Resources>
+
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Border Grid.Row="0"
+            Padding="12"
+            CornerRadius="16"
+            BorderBrush="#FFE2E8F0"
+            BorderThickness="1"
+            Background="#FFFFFFFF">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+          <TextBlock Text="&#x5730;&#x56FE;&#x670D;&#x52A1;&#x56FE;&#x4ED3;"
+                     FontSize="20"
+                     FontWeight="SemiBold"
+                     Foreground="#0F172A" />
+          <TextBlock Margin="0,4,0,0"
+                     Text="&#x9876;&#x90E8;&#x4E24;&#x4E2A;&#x4E0B;&#x62C9;&#x5206;&#x522B;&#x6309;&#x670D;&#x52A1;&#x5546;&#x548C;&#x7C7B;&#x578B;&#x7B5B;&#x9009;&#xFF0C;&#x4E0B;&#x9762;&#x4EE5;&#x5E73;&#x94FA;&#x5361;&#x7247;&#x6D41;&#x5C55;&#x793A;&#x6700;&#x7EC8;&#x7ED3;&#x679C;&#x3002;"
+                     FontSize="12"
+                     Foreground="#64748B"
+                     TextWrapping="Wrap" />
+          <TextBlock Margin="0,6,0,0"
+                     Text="{Binding VisiblePresetCountText}"
+                     FontSize="11"
+                     Foreground="#0F766E" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+          <StackPanel Margin="0,0,12,0"
+                      Orientation="Horizontal"
+                      VerticalAlignment="Center">
+            <TextBlock Margin="0,0,10,0"
+                       VerticalAlignment="Center"
+                       FontSize="11"
+                       FontWeight="SemiBold"
+                       Foreground="#64748B"
+                       Text="&#x670D;&#x52A1;&#x5546;" />
+            <ComboBox Style="{StaticResource ToolbarComboBoxStyle}"
+                      ItemsSource="{Binding ProviderFilterOptions}"
+                      DisplayMemberPath="Label"
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding SelectedProviderFilterKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal"
+                      VerticalAlignment="Center">
+            <TextBlock Margin="0,0,10,0"
+                       VerticalAlignment="Center"
+                       FontSize="11"
+                       FontWeight="SemiBold"
+                       Foreground="#64748B"
+                       Text="&#x7C7B;&#x578B;" />
+            <ComboBox Style="{StaticResource ToolbarComboBoxStyle}"
+                      ItemsSource="{Binding ContentTypeFilterOptions}"
+                      DisplayMemberPath="Label"
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding SelectedContentTypeFilterKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <ScrollViewer Grid.Row="1"
+                  Margin="0,10,0,10"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+      <ItemsControl ItemsSource="{Binding GalleryView}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel IsItemsHost="True" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+          <Style TargetType="ContentPresenter">
+            <Setter Property="Margin" Value="0,0,12,12" />
+          </Style>
+        </ItemsControl.ItemContainerStyle>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Button Style="{StaticResource GalleryCardButtonStyle}"
+                    Width="160"
+                    Command="{Binding DataContext.AddPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}">
+              <Button.ToolTip>
+                <TextBlock Width="160"
+                           Text="{Binding Summary}"
+                           TextWrapping="Wrap" />
+              </Button.ToolTip>
+              <Border>
+                <Border.Style>
+                  <Style TargetType="Border" BasedOn="{StaticResource GalleryCardBorderStyle}">
+                    <Style.Triggers>
+                      <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                          <Condition Binding="{Binding IsAdded}" Value="True" />
+                          <Condition Binding="{Binding ShowAddedState}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="#FFF0FDF4" />
+                        <Setter Property="BorderBrush" Value="#FF22C55E" />
+                      </MultiDataTrigger>
+                      <DataTrigger Binding="{Binding HasCredential}" Value="False">
+                        <Setter Property="Opacity" Value="0.94" />
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                        <Setter Property="Background" Value="#FFF0F9FF" />
+                        <Setter Property="BorderBrush" Value="#FF38BDF8" />
+                        <Setter Property="BorderThickness" Value="2" />
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Border.Style>
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="96" />
+                    <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+
+                  <Border CornerRadius="12"
+                          Background="#FFF8FAFC"
+                          BorderBrush="#FFE2E8F0"
+                          BorderThickness="1"
+                          ClipToBounds="True">
+                    <Grid>
+                      <Image Source="{Binding Thumbnail}"
+                             Stretch="UniformToFill"
+                             SnapsToDevicePixels="True" />
+
+                      <Border HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Margin="8"
+                              Padding="7,2"
+                              CornerRadius="999"
+                              Background="#CCFFFFFF"
+                              BorderBrush="#FFE2E8F0"
+                              BorderThickness="1">
+                        <TextBlock FontSize="9"
+                                   FontWeight="SemiBold"
+                                   Foreground="#334155"
+                                   Text="{Binding DisplayBadgeText}" />
+                      </Border>
+                    </Grid>
+                  </Border>
+
+                  <StackPanel Grid.Row="1"
+                              Margin="4,6,4,0">
+                    <TextBlock FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#0F172A"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="{Binding TitleLine}" />
+                    <TextBlock Margin="0,3,0,0"
+                               FontSize="10"
+                               Foreground="#64748B"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="{Binding ClassificationSummary}" />
+                    <TextBlock Margin="0,3,0,0"
+                               FontSize="10"
+                               Foreground="#2563EB"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="{Binding ActionHintText}" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <Border Grid.Row="2"
+            Padding="10,7"
+            CornerRadius="12"
+            BorderBrush="#FFE2E8F0"
+            BorderThickness="1"
+            Background="#FFF8FAFC">
+      <TextBlock VerticalAlignment="Center"
+                 FontSize="11"
+                 Foreground="#0F766E"
+                 Text="{Binding StatusText}"
+                 TextWrapping="Wrap" />
+    </Border>
+  </Grid>
+</UserControl>

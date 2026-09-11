@@ -1,0 +1,632 @@
+<UserControl x:Class="GisProAddinWorkbench.AddIn.FaceToTxt.FaceToTxtWorkbenchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:GisProAddinWorkbench.AddIn.FaceToTxt"
+             mc:Ignorable="d"
+             d:DesignWidth="1280"
+             d:DesignHeight="820"
+             MinWidth="{DynamicResource CompactFaceToTxtMinWidth}"
+             MinHeight="{DynamicResource CompactFaceToTxtMinHeight}">
+  <UserControl.Resources>
+    <Style x:Key="CardBorderStyle" TargetType="Border">
+      <Setter Property="Padding" Value="{DynamicResource CompactPaddingCard}" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="BorderBrush" Value="#DDE5EF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="Margin" Value="0,0,0,8" />
+    </Style>
+
+    <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontSection}" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#0F172A" />
+    </Style>
+
+    <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#334155" />
+      <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+
+    <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+      <Setter Property="Padding" Value="{DynamicResource CompactPaddingInput}" />
+      <Setter Property="Background" Value="#FFF8FAFC" />
+      <Setter Property="BorderBrush" Value="#CBD5E1" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="MinWidth" Value="100" />
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+    </Style>
+
+    <Style x:Key="OptionComboStyle" TargetType="ComboBox">
+      <Setter Property="Padding" Value="{DynamicResource CompactPaddingInput}" />
+      <Setter Property="Background" Value="#FFF8FAFC" />
+      <Setter Property="BorderBrush" Value="#CBD5E1" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="MinWidth" Value="100" />
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+    </Style>
+
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+      <Setter Property="Padding" Value="{DynamicResource CompactPaddingButton}" />
+      <Setter Property="Background" Value="#1D4ED8" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="BorderBrush" Value="#1D4ED8" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="MinWidth" Value="100" />
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+    </Style>
+
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+      <Setter Property="Padding" Value="{DynamicResource CompactPaddingButton}" />
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="Foreground" Value="#0F172A" />
+      <Setter Property="BorderBrush" Value="#CBD5E1" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="MinWidth" Value="90" />
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+    </Style>
+
+    <Style x:Key="PreviewTextBoxStyle" TargetType="TextBox">
+      <Setter Property="Padding" Value="10" />
+      <Setter Property="Background" Value="#0F172A" />
+      <Setter Property="Foreground" Value="#E2E8F0" />
+      <Setter Property="BorderBrush" Value="#1E293B" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="FontFamily" Value="Consolas" />
+      <Setter Property="FontSize" Value="{DynamicResource CompactFontBody}" />
+      <Setter Property="TextWrapping" Value="NoWrap" />
+      <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+      <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+      <Setter Property="AcceptsReturn" Value="True" />
+      <Setter Property="IsReadOnly" Value="True" />
+    </Style>
+  </UserControl.Resources>
+
+  <Grid Margin="{DynamicResource CompactPaddingCard}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Border Padding="{DynamicResource CompactPaddingCard}"
+            CornerRadius="16"
+            BorderBrush="#D7E2F0"
+            BorderThickness="1"
+            Background="#F8FBFF">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+          <TextBlock Text="面状要素转 TXT"
+                     FontSize="20"
+                     FontWeight="SemiBold"
+                     Foreground="#0F172A" />
+          <TextBlock Margin="0,6,0,0"
+                     Text="将当前选择集或指定面要素类整理成 TXT 导出内容，先核对字段映射，再导出标准文本。"
+                     Foreground="#475569"
+                     TextWrapping="Wrap" />
+          <TextBlock Margin="0,6,0,0"
+                     Text="{Binding StatusText}"
+                     Foreground="#0F766E"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right">
+          <Border Padding="9,5"
+                  Margin="0,0,10,0"
+                  CornerRadius="999"
+                  Background="#E0F2FE"
+                  BorderBrush="#7DD3FC"
+                  BorderThickness="1">
+            <TextBlock Text="{Binding SourceSummaryText}"
+                       Foreground="#075985"
+                       FontSize="10.5"
+                       TextWrapping="Wrap" />
+          </Border>
+          <Border Padding="9,5"
+                  CornerRadius="999"
+                  Background="#DCFCE7"
+                  BorderBrush="#86EFAC"
+                  BorderThickness="1">
+            <TextBlock Text="{Binding PresetName}"
+                       Foreground="#166534"
+                       FontSize="10.5"
+                       FontWeight="SemiBold" />
+          </Border>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" Margin="0,10,0,10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="{DynamicResource CompactFaceToTxtLeftPaneWidth}" />
+        <ColumnDefinition Width="12" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <ScrollViewer Grid.Column="0"
+                    VerticalScrollBarVisibility="Disabled"
+                    HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+          <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="12" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+          <Border Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+              <TextBlock Style="{StaticResource SectionTitleStyle}" Text="配置预设" />
+              <TextBlock Margin="0,6,0,12"
+                         Foreground="#64748B"
+                         Text="在这里保存和切换常用设置，切换时会自动加载整套工作台状态。"
+                         TextWrapping="Wrap" />
+
+              <ComboBox ItemsSource="{Binding PresetOptions}"
+                        SelectedItem="{Binding SelectedPresetOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        DisplayMemberPath="Label"
+                        Style="{StaticResource OptionComboStyle}" />
+
+              <TextBox Margin="0,8,0,0"
+                       Style="{StaticResource InputTextBoxStyle}"
+                       Text="{Binding PresetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+              <StackPanel Margin="0,12,0,0"
+                          Orientation="Horizontal">
+                <Button Margin="0,0,8,0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="新建"
+                        Command="{Binding NewPresetCommand}" />
+                <Button Margin="0,0,8,0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="保存"
+                        Command="{Binding SavePresetCommand}" />
+                <Button Style="{StaticResource SecondaryButtonStyle}"
+                        Content="删除"
+                        Command="{Binding DeletePresetCommand}" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+              <TextBlock Style="{StaticResource SectionTitleStyle}" Text="输入来源" />
+              <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox ItemsSource="{Binding InputModeOptions}"
+                          SelectedItem="{Binding SelectedInputModeOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="Label"
+                          Style="{StaticResource OptionComboStyle}" />
+                <Button Grid.Column="2"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="刷新"
+                        Command="{Binding RefreshSourceCommand}" />
+              </Grid>
+
+              <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Style="{StaticResource InputTextBoxStyle}"
+                         Text="{Binding BrowseDatasetPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="2"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="浏览要素类"
+                        Command="{Binding BrowseDatasetCommand}" />
+              </Grid>
+
+              <Border Margin="0,12,0,0"
+                      Padding="10"
+                      CornerRadius="12"
+                      Background="#F8FAFC"
+                      BorderBrush="#E2E8F0"
+                      BorderThickness="1">
+                <StackPanel>
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="来源摘要" />
+                  <TextBlock Text="{Binding SourceSummaryText}"
+                             Foreground="#0F172A"
+                             TextWrapping="Wrap" />
+                  <TextBlock Margin="0,8,0,0"
+                             Text="{Binding SourceDetailText}"
+                             Foreground="#64748B"
+                             TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+            </StackPanel>
+          </Border>
+          </Grid>
+
+          <Border Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+              <TextBlock Style="{StaticResource SectionTitleStyle}" Text="字段映射" />
+              <TextBlock Margin="0,6,0,12"
+                         Foreground="#64748B"
+                         Text="每个下拉框都支持自动匹配，也可以手动切换到当前数据集中的字段。"
+                         TextWrapping="Wrap" />
+
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="地块编号字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding ParcelIdField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+
+                  <TextBlock Margin="0,12,0,0" Style="{StaticResource FieldLabelStyle}" Text="地块用途字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding ParcelUseField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+
+                  <TextBlock Margin="0,12,0,0" Style="{StaticResource FieldLabelStyle}" Text="面积字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding AreaField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="地块名称字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding ParcelNameField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+
+                  <TextBlock Margin="0,12,0,0" Style="{StaticResource FieldLabelStyle}" Text="地类编码字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding LandCodeField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+
+                  <TextBlock Margin="0,12,0,0" Style="{StaticResource FieldLabelStyle}" Text="图幅号字段" />
+                  <ComboBox ItemsSource="{Binding FieldOptions}"
+                            DisplayMemberPath="Label"
+                            SelectedValuePath="Value"
+                            SelectedValue="{Binding MapSheetField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource OptionComboStyle}" />
+                </StackPanel>
+              </Grid>
+
+              <TextBlock Margin="0,12,0,6"
+                         Style="{StaticResource FieldLabelStyle}"
+                         Text="TXT 命名字段" />
+              <ComboBox ItemsSource="{Binding FieldOptions}"
+                        DisplayMemberPath="Label"
+                        SelectedValuePath="Value"
+                        SelectedValue="{Binding NamingField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource OptionComboStyle}" />
+            </StackPanel>
+          </Border>
+
+          <Border Style="{StaticResource CardBorderStyle}">
+            <StackPanel>
+              <TextBlock Style="{StaticResource SectionTitleStyle}" Text="输出与结构" />
+              <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Style="{StaticResource InputTextBoxStyle}"
+                         Text="{Binding OutputDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="2"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Content="浏览路径"
+                        Command="{Binding BrowseOutputCommand}" />
+              </Grid>
+
+              <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="TXT 模式" />
+                  <ComboBox ItemsSource="{Binding TxtModeOptions}"
+                            SelectedItem="{Binding SelectedTxtModeOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="Label"
+                            Style="{StaticResource OptionComboStyle}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="文件命名" />
+                  <ComboBox ItemsSource="{Binding FileNameModeOptions}"
+                            SelectedItem="{Binding SelectedFileNameModeOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="Label"
+                            Style="{StaticResource OptionComboStyle}" />
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Expander Margin="0,0,0,12"
+                    Padding="14"
+                    Background="#FFFFFF"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    IsExpanded="False"
+                    Header="高级参数">
+            <StackPanel>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="12" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                  <CheckBox Content="自动图幅号"
+                            IsChecked="{Binding AutoMapSheet, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="导出新国标（2000）"
+                            IsChecked="{Binding UseNewStandard, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="互换 XY 顺序"
+                            IsChecked="{Binding SwapXY, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="界址点总数 +1"
+                            IsChecked="{Binding IncludeClosingPoint, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="修复图形坏线"
+                            IsChecked="{Binding RepairGeometry, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                  <CheckBox Content="挖空区线编号"
+                            IsChecked="{Binding NumberHoleRings, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="反算图形边长"
+                            IsChecked="{Binding ReverseLength, Mode=TwoWay}" />
+                  <CheckBox Margin="0,8,0,0"
+                            Content="自定义文件描述内容"
+                            IsChecked="{Binding CustomDescriptionEnabled, Mode=TwoWay}" />
+
+                  <Grid Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="12" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="坐标前缀" />
+                      <TextBox Style="{StaticResource InputTextBoxStyle}"
+                               Text="{Binding CoordinatePrefix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="坐标加带数" />
+                      <TextBox Style="{StaticResource InputTextBoxStyle}"
+                               Text="{Binding BandAdjustment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                  </Grid>
+
+                  <Grid Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="12" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="坐标精度" />
+                      <TextBox Style="{StaticResource InputTextBoxStyle}"
+                               Text="{Binding CoordinateDecimals, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="点号位数" />
+                      <TextBox Style="{StaticResource InputTextBoxStyle}"
+                               Text="{Binding PointNumberDigits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                  </Grid>
+
+                  <Grid Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="12" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="面积精度" />
+                      <TextBox Style="{StaticResource InputTextBoxStyle}"
+                               Text="{Binding AreaDecimals, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                      <TextBlock Style="{StaticResource FieldLabelStyle}" Text="面积单位" />
+                      <ComboBox ItemsSource="{Binding AreaUnitOptions}"
+                                SelectedItem="{Binding SelectedAreaUnitOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="Label"
+                                Style="{StaticResource OptionComboStyle}" />
+                    </StackPanel>
+                  </Grid>
+                </StackPanel>
+              </Grid>
+
+              <Border Margin="0,12,0,0"
+                      Padding="10"
+                      CornerRadius="12"
+                      Background="#F8FAFC"
+                      BorderBrush="#E2E8F0"
+                      BorderThickness="1">
+                <StackPanel>
+                  <TextBlock Style="{StaticResource FieldLabelStyle}" Text="数据生产单位" />
+                  <TextBox Style="{StaticResource InputTextBoxStyle}"
+                           Text="{Binding ProductionUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                  <TextBlock Margin="0,10,0,6"
+                             Style="{StaticResource FieldLabelStyle}"
+                             Text="数据生产日期" />
+                  <TextBox Style="{StaticResource InputTextBoxStyle}"
+                           Text="{Binding ProductionDateText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                  <TextBlock Margin="0,10,0,6"
+                             Style="{StaticResource FieldLabelStyle}"
+                             Text="自定义文件描述内容" />
+                  <TextBox Height="110"
+                           Style="{StaticResource InputTextBoxStyle}"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           VerticalScrollBarVisibility="Auto"
+                           Text="{Binding CustomDescriptionText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+              </Border>
+            </StackPanel>
+          </Expander>
+        </StackPanel>
+      </ScrollViewer>
+
+      <Grid Grid.Column="2" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="10" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="10" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Style="{StaticResource CardBorderStyle}" Margin="0">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="{DynamicResource CompactFaceToTxtPreviewRowHeight}" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+
+              <StackPanel>
+                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="TXT 预览" />
+                <TextBlock Margin="0,6,0,0"
+                           Foreground="#64748B"
+                           Text="这里显示结构示意、关键参数和示例行，导出前先核对格式。"
+                           TextWrapping="Wrap" />
+              </StackPanel>
+
+              <Button Grid.Column="1"
+                      Style="{StaticResource PrimaryButtonStyle}"
+                      Content="导出 TXT"
+                      Command="{Binding ExportCommand}" />
+            </Grid>
+
+            <TextBox Grid.Row="1"
+                     Margin="0,10,0,0"
+                     Style="{StaticResource PreviewTextBoxStyle}"
+                     Text="{Binding PreviewText, Mode=OneWay}" />
+          </Grid>
+        </Border>
+
+        <Border Grid.Row="2"
+                Style="{StaticResource CardBorderStyle}"
+                Margin="0">
+          <StackPanel>
+            <TextBlock Style="{StaticResource SectionTitleStyle}" Text="校验结果" />
+            <ItemsControl Margin="0,10,0,0"
+                          ItemsSource="{Binding ValidationItems}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Margin="0,0,0,8"
+                          Padding="10"
+                          CornerRadius="10"
+                          BorderThickness="1"
+                          BorderBrush="#E2E8F0"
+                          Background="#F8FAFC">
+                    <Border.Style>
+                      <Style TargetType="Border">
+                        <Style.Triggers>
+                          <DataTrigger Binding="{Binding Severity}" Value="{x:Static local:FaceToTxtValidationSeverity.Error}">
+                            <Setter Property="Background" Value="#FEF2F2" />
+                            <Setter Property="BorderBrush" Value="#FCA5A5" />
+                          </DataTrigger>
+                          <DataTrigger Binding="{Binding Severity}" Value="{x:Static local:FaceToTxtValidationSeverity.Warning}">
+                            <Setter Property="Background" Value="#FFFBEB" />
+                            <Setter Property="BorderBrush" Value="#FCD34D" />
+                          </DataTrigger>
+                          <DataTrigger Binding="{Binding Severity}" Value="{x:Static local:FaceToTxtValidationSeverity.Info}">
+                            <Setter Property="Background" Value="#EFF6FF" />
+                            <Setter Property="BorderBrush" Value="#93C5FD" />
+                          </DataTrigger>
+                        </Style.Triggers>
+                      </Style>
+                    </Border.Style>
+
+                    <TextBlock Text="{Binding Message}"
+                               Foreground="#0F172A"
+                               TextWrapping="Wrap" />
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Grid>
+    <Border Grid.Row="2"
+            Padding="9,7"
+            CornerRadius="12"
+            BorderBrush="#D7E2F0"
+            BorderThickness="1"
+            Background="#FFFFFF">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock VerticalAlignment="Center"
+                   Foreground="#0F766E"
+                   Text="{Binding StatusText}"
+                   TextWrapping="Wrap" />
+
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+          <Button Margin="0,0,8,0"
+                  Style="{StaticResource SecondaryButtonStyle}"
+                  Content="刷新来源"
+                  Command="{Binding RefreshSourceCommand}" />
+          <Button Style="{StaticResource SecondaryButtonStyle}"
+                  Content="保存配置"
+                  Command="{Binding SavePresetCommand}" />
+        </StackPanel>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

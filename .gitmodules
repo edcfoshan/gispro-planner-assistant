@@ -1,0 +1,3 @@
+[submodule "GisProAddinWorkbench.AddIn/Vendored/codex_arcgis-geocode-toolbox"]
+	path = GisProAddinWorkbench.AddIn/Vendored/codex_arcgis-geocode-toolbox
+	url = https://github.com/edcfoshan/ArcGISpro-baidu-amap-geocode-pyt.git

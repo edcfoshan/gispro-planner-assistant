@@ -1,0 +1,74 @@
+<Window x:Class="GisProAddinWorkbench.AddIn.Logs.SystemLogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="系统日志"
+        Height="560"
+        Width="900"
+        MinWidth="700"
+        MinHeight="420"
+        WindowStartupLocation="CenterOwner">
+  <Grid Margin="12">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <DockPanel Grid.Row="0">
+      <TextBlock VerticalAlignment="Center"
+                 FontSize="16"
+                 FontWeight="SemiBold"
+                 Text="模块日志" />
+      <Button DockPanel.Dock="Right"
+              Padding="10,4"
+              Content="清空日志"
+              Command="{Binding ClearCommand}" />
+    </DockPanel>
+
+    <DataGrid Grid.Row="1"
+              Margin="0,10,0,10"
+              ItemsSource="{Binding Logs}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              HeadersVisibility="Column">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="时间" Binding="{Binding Timestamp}" Width="180" />
+        <DataGridTextColumn Header="级别" Binding="{Binding Level}" Width="80" />
+        <DataGridTextColumn Header="内容" Binding="{Binding Message}" Width="*" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+    <Border Grid.Row="2"
+            Padding="8"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="4"
+            Background="#F8FAFC">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="{Binding DiagnosticsPath, StringFormat=诊断日志文件：{0}}" />
+
+        <Button Grid.Column="1"
+                Margin="12,0,8,0"
+                Padding="10,4"
+                Content="打开日志路径"
+                Command="{Binding OpenDiagnosticsFolderCommand}" />
+
+        <Button Grid.Column="2"
+                Padding="10,4"
+                Content="打开日志文件"
+                Command="{Binding OpenDiagnosticsFileCommand}" />
+      </Grid>
+    </Border>
+  </Grid>
+</Window>
