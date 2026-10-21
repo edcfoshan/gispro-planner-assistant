@@ -12,9 +12,20 @@
 | 面转文本 | 要素面导出为可读文本 |
 | 系统设置 | 工具路径、默认输出库、UI 密度与日志统一管理 |
 
-## 赞助商
+## ❤️ 赞助商
 
-感谢 **jizhanai.top** 赞助支持！通过[邀请链接注册开通](https://jizhanai.top/register?ref=PBUXGDHTFUAS)，填写邀请码 **`PBUXGDHTFUAS`** 可减 **5 元**。
+<a href="https://jizhanai.top/register?ref=PBUXGDHTFUAS">
+  <img src="./content/sponsors/jizhan-banner.svg" width="100%" alt="极栈：填写邀请码 PBUXGDHTFUAS 减 5 元，点击注册开通" />
+</a>
+
+<table>
+  <tr>
+    <td width="24%" align="center">
+      <a href="https://jizhanai.top/register?ref=PBUXGDHTFUAS"><img src="./content/sponsors/jizhan-wordmark.svg" width="180" alt="极栈 jizhanai.top，点击通过邀请链接注册" /></a>
+    </td>
+    <td>感谢 <a href="https://jizhanai.top/register?ref=PBUXGDHTFUAS"><b>极栈 · jizhanai.top</b></a> 赞助支持本项目！极栈提供 <b>ChatGPT 激活码</b>，选购后按站内指引前往码港兑换。<br><br>通过<a href="https://jizhanai.top/register?ref=PBUXGDHTFUAS">邀请链接注册开通</a>，填写邀请码 <code>PBUXGDHTFUAS</code>，可减 <b>5 元</b>。</td>
+  </tr>
+</table>
 
 ## 环境要求
 
