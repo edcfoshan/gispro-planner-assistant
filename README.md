@@ -12,6 +12,10 @@
 | 面转文本 | 要素面导出为可读文本 |
 | 系统设置 | 工具路径、默认输出库、UI 密度与日志统一管理 |
 
+## 赞助商
+
+感谢 **jizhanai.top** 赞助支持！通过[邀请链接注册开通](https://jizhanai.top/register?ref=PBUXGDHTFUAS)，填写邀请码 **`PBUXGDHTFUAS`** 可减 **5 元**。
+
 ## 环境要求
 
 - ArcGIS Pro 3.4 / 3.5
@@ -49,15 +53,15 @@ dotnet build GisProAddinWorkbench.sln -c Release
 > git submodule update --remote
 > ```
 
-## 交流
+## 关注与赞赏
 
-QQ 交流群与公众号：
+扫码关注「极思G工作室」公众号、加入 QQ 交流群，获取工具更新、交流使用经验：
 
-<p>
-  <img src="GisProAddinWorkbench.AddIn/Images/QRCodes/qq-group.jpg" width="200" alt="QQ 交流群" />
-  &nbsp;
-  <img src="GisProAddinWorkbench.AddIn/Images/QRCodes/wechat-official.jpg" width="200" alt="微信公众号" />
-</p>
+<img src="./content/求关注-极思G-20261014.png" width="720" alt="关注极思G：公众号与 QQ 交流群" />
+
+如果这些工具对你有帮助，欢迎赞赏支持。赞赏完全自愿，感谢你的支持。
+
+<img src="./content/求赞赏-极思G-20261014.png" width="720" alt="支持极思G：微信赞赏与爱发电" />
 
 ## 文档
 
