@@ -1,0 +1,13 @@
+title = "gispro-planner-assistant release scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+  description = "AES-GCM ciphertext constants; plaintext keys and admin password are never committed"
+  paths = [
+    '''GisProAddinWorkbench\.AddIn/Modules/Imagery/ImageryCredentialVault\.cs''',
+  ]
+  regexes = [
+    '''internal const string Protected(?:TianDiTu|Jilin)KeysBase64 = "[A-Za-z0-9+/=]+"''',
+  ]

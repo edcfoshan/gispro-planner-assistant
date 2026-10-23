@@ -19,12 +19,12 @@ public partial class VersionStatementWindow : Window
         InitializeComponent();
         DataContext = this;
 
-        PluginName = "插件：国土giser工具箱";
+        PluginName = "插件：极思G 规划工作台（Demo）";
         PublicVersionText = $"对外展示版本：v{ExtractPublicVersion(informationalVersion, assemblyVersion)}";
         AssemblyVersionText = $"程序集版本：{assemblyVersion}";
         InformationalVersionText = $"版本标识：{informationalVersion}";
         UpdatedAtText = $"更新时间：{updatedAt}";
-        SoftwareIntroText = "软件介绍：国土giser工具箱面向自然资源与国土空间从业者，围绕数据获取、在线瓦片服务、批量处理、结果落图等高频任务提供统一作业入口，减少重复点击与参数切换，帮助在 ArcGIS Pro 中更高效地完成分析处理与成果生产。";
+        SoftwareIntroText = "软件介绍：极思G 规划工作台面向城乡规划从业者，把前期调研、影像底图、地图跳转和成果整理等高频任务收进同一工作台。当前为 Demo，部分模块仍为骨架或实验功能，功能尚未完整。";
         AuthorText = "作者：极思G工作室";
         QqGroupQrText = "扫码加入交流群";
         WechatQrText = "极思G工作室\n公众号二维码";

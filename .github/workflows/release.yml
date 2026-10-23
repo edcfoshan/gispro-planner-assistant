@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build ArcGIS Pro Add-in
+        shell: pwsh
+        run: ./scripts/dev/build-addin.ps1 -Configuration Release
+
+      - name: Create checksum
+        shell: pwsh
+        run: |
+          $artifact = Get-ChildItem -LiteralPath artifacts/Release -Filter '*.esriAddinX' | Select-Object -First 1
+          if (-not $artifact) { throw 'Release Add-in was not found.' }
+          $hash = (Get-FileHash -LiteralPath $artifact.FullName -Algorithm SHA256).Hash
+          "$hash  $($artifact.Name)" | Set-Content -LiteralPath SHA256SUMS.txt -Encoding ascii
+
+      - name: Publish draft pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          $artifact = Get-ChildItem -LiteralPath artifacts/Release -Filter '*.esriAddinX' | Select-Object -First 1
+          if (-not $artifact) { throw 'Release Add-in was not found.' }
+          $version = $env:GITHUB_REF_NAME.Substring(1)
+          $notes = "docs/guides/release-notes-$version.md"
+          if (-not (Test-Path -LiteralPath $notes)) { throw "Release notes were not found: $notes" }
+          gh release create $env:GITHUB_REF_NAME `
+            $artifact.FullName `
+            SHA256SUMS.txt `
+            --verify-tag --draft --prerelease `
+            --title '极思G 规划工作台 ${{ github.ref_name }} · Demo' `
+            --notes-file $notes

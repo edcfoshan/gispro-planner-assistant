@@ -101,7 +101,7 @@ if ([string]::IsNullOrWhiteSpace($defaultAssembly)) {
     throw "在 Config.daml 中未找到 defaultAssembly."
 }
 
-$packageName = [System.IO.Path]::GetFileNameWithoutExtension($defaultAssembly) + ".esriAddinX"
+$packageName = "JisigG-Planner-Workbench_{0}_x64.esriAddinX" -f $publicVersion
 $packagePath = Join-Path $artifactRoot $packageName
 $zipPath = Join-Path $artifactRoot ([System.IO.Path]::GetFileNameWithoutExtension($packageName) + ".zip")
 $installRoot = Join-Path $stagingRoot "Install"

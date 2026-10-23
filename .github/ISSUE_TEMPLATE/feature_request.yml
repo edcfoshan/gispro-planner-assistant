@@ -1,0 +1,34 @@
+name: 功能建议
+description: 为规划工作台的真实工作流提出改进建议
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 真实规划工作流
+      description: 当前任务、参与角色、输入数据和已有处理方式。
+    validations:
+      required: true
+  - type: textarea
+    id: desired
+    attributes:
+      label: 期望的工作台行为
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: 输入、输出与质量要求
+      description: 不需要上传真实业务数据，只描述类型、结构、坐标和成果检查点。
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 已搜索现有 Issue 和 Discussions。
+          required: true
+        - label: 内容不含账号、密钥、管理员密码、个人信息或敏感业务数据。
+          required: true

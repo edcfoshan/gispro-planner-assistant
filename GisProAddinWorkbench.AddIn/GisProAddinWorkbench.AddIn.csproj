@@ -7,11 +7,11 @@
     <RootNamespace>GisProAddinWorkbench.AddIn</RootNamespace>
     <PackageType>AddIn</PackageType>
     <LangVersion>latest</LangVersion>
-    <PublicVersion>1.0.0</PublicVersion>
-    <Version>$(PublicVersion)</Version>
-    <AssemblyVersion>$(PublicVersion).0</AssemblyVersion>
-    <FileVersion>$(PublicVersion).0</FileVersion>
-    <InformationalVersion>$(PublicVersion)</InformationalVersion>
+    <PublicVersion>0.1.0-demo.1</PublicVersion>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <InformationalVersion>0.1.0-demo.1</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
